@@ -7,6 +7,9 @@ import java.net.UnknownHostException;
 import client.BttpClient;
 
 public class App {
+	//TODO make an enum
+
+}
 
 	public static void main(String[] args) {
 		try {

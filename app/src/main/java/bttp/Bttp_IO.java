@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
 import bttp.BttpEncoder;
+import client.IHM;
 
 public class Bttp_IO{
 	private Socket client_socket;
@@ -33,13 +34,7 @@ public class Bttp_IO{
 			
 		return BttpEncoder.decode(line);
 	}
-	
-	public String timedout_read_line() throws IOException {
-		
-		String message = read_line();
-		
-		return message;
-	}
+
 	
 	public void direct_write_line(String s) {
 		writer.println(BttpEncoder.encode(s));
@@ -48,9 +43,5 @@ public class Bttp_IO{
 	public void buffered_write_line(String s) {
 		writer.write(BttpEncoder.encode(s));
 	}
-	
-}
-
-class TimeOut{
 	
 }

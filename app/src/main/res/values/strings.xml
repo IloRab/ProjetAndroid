@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Projet_Android</string>
+
+    <string name="reservation">Reserver</string>
+    <string name="emprunt">Emprunter</string>
+    <string name="retour">Retourner</string>
 </resources>
