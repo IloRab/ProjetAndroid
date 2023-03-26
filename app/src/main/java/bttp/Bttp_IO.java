@@ -37,6 +37,7 @@ public class Bttp_IO{
 
 	
 	public void direct_write_line(String s) {
+
 		writer.println(BttpEncoder.encode(s));
 	}
 	

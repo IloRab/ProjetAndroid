@@ -1,11 +1,7 @@
 package client;
 
-import android.util.Log;
-
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Scanner;
 
 import bttp.Bttp_IO;
 
@@ -36,13 +32,10 @@ public class BttpClient implements Runnable{
 			do {
 				message = sio.read_line();
 
-				if (message.contains(END_SEQUENCE))
-					break;
+				ihm.display_msg(message);
 
-				ihm.get_Display(message);
-
-				input = ihm.get_Query();
-				if (input.equals(END_SEQUENCE))
+				input = ihm.query_user();
+				if (input.equals(END_SEQUENCE) || message.contains(END_SEQUENCE))
 					break;
 
 				sio.direct_write_line(input);

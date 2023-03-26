@@ -11,8 +11,8 @@ import android.widget.TextView;
 import client.IHM;
 
 public class AndroidIHM implements IHM {
-   // private final ViewGroup chat_view;
-    //  private final Context context;
+    private final ViewGroup chat_view;
+    private final Context context;
     private final TextView output;
 
     private final EditText input;
@@ -41,7 +41,7 @@ public class AndroidIHM implements IHM {
     }
 
     @Override
-    public void get_Display(String msg) {
+    public void display_msg(String msg) {
        // LinearLayout parentLayout = (LinearLayout)findViewById(R.id.parent);
       //  TextView textView = new TextView(context);
      //   textView.setText(msg);
@@ -56,13 +56,13 @@ public class AndroidIHM implements IHM {
     }
 
     @Override
-    public String get_Query() {
+    public String query_user() {
         String res = "<end>";
         synchronized (input){
             try {
                 input.wait();
                 res = input.getText().toString();
-                input.clearComposingText();
+                input.getText().clear();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -70,4 +70,9 @@ public class AndroidIHM implements IHM {
 
         return res;
     }
+
+    /**@Override
+    public void end() {
+        res
+    }*/
 }

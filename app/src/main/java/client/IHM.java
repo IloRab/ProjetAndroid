@@ -1,7 +1,8 @@
 package client;
 
 public interface IHM {
-    void get_Display (String msg);
-    String get_Query();
+    void display_msg(String msg);
+    String query_user();
 
+    void end();
 }
