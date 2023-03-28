@@ -11,8 +11,8 @@ import android.widget.TextView;
 import client.IHM;
 
 public class AndroidIHM implements IHM {
-    private final ViewGroup chat_view;
-    private final Context context;
+    //private final ViewGroup chat_view;
+  //  private final Context context;
     private final TextView output;
 
     private final EditText input;
@@ -62,7 +62,13 @@ public class AndroidIHM implements IHM {
             try {
                 input.wait();
                 res = input.getText().toString();
-                input.getText().clear();
+                act.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        input.getText().clear();
+                    }
+                });
+
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -71,8 +77,14 @@ public class AndroidIHM implements IHM {
         return res;
     }
 
-    /**@Override
+    @Override
     public void end() {
-        res
-    }*/
+        act.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ViewGroup parent = (ViewGroup) input.getParent();
+                parent.removeAllViews();
+            }
+        });
+    }
 }

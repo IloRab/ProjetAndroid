@@ -9,7 +9,8 @@
     app:alignItems="stretch"
     app:alignContent="stretch"
     app:justifyContent="center"
-    android:padding="50dp">
+    android:padding="50dp"
+    android:outlineAmbientShadowColor="#003f5c">
 
     <Button
         android:id="@+id/reservation_btn"

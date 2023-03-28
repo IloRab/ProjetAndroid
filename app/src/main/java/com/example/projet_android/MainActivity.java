@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         ports.put(R.id.emprunt_btn,4000);
         ports.put(R.id.retour_btn,5000);
 
-        set_onclick(get_all(btns),new View.OnClickListener() {
+        set_onclick(get_all(btns), new View.OnClickListener() {
             public void onClick(View view) {
                 to_chat(ports.get(view.getId()));
             }

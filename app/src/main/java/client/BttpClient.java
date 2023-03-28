@@ -35,15 +35,18 @@ public class BttpClient implements Runnable{
 				ihm.display_msg(message);
 
 				input = ihm.query_user();
-				if (input.equals(END_SEQUENCE) || message.contains(END_SEQUENCE))
+				if (input.equals(END_SEQUENCE) || message.contains(END_SEQUENCE)) {
 					break;
+				}
 
 				sio.direct_write_line(input);
 
 			} while (!socket.isClosed() && !input.equals(END_SEQUENCE));
 
+			ihm.end();
 			socket.close();
 		} catch (IOException e){
+			ihm.display_msg("Erreur de connection avec le serveur.");
 			throw new RuntimeException("Connection impossible");
 		}
 	}
