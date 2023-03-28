@@ -13,9 +13,11 @@ import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.common.InputImage;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -41,21 +43,12 @@ public class ServeurChat extends AppCompatActivity {
          findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-
+                 Intent open_cam = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                 startActivityForResult(open_cam,100);
              }
          });
 
     }
-
-    // create an instance of the
-    // intent of the type image
-    Intent i = new Intent();
-    i.;
-        i.setAction(Intent.ACTION_GET_CONTENT);
-
-    // pass the constant to compare it
-    // with the returned requestCode
-    startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     private void start_client(String ip, IHM ihm){
         BttpClient c = new BttpClient(ip, get_port(), ihm);
         Thread client = new Thread(c);
@@ -64,6 +57,15 @@ public class ServeurChat extends AppCompatActivity {
 
     private int get_port(){
         return getIntent().getIntExtra(MainActivity.PORT, DEFAULT_PORT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Bitmap photo = (Bitmap) data.getExtras().get("data");
+        InputImage i = InputImage.fromBitmap(photo, 0);
+        scanQrCode(i, findViewById(R.id.client_input));
     }
 
     private void scanQrCode(InputImage image, EditText input){
@@ -82,11 +84,9 @@ public class ServeurChat extends AppCompatActivity {
                         if (barcodes.size() != 1)
                             throw new RuntimeException("Nb code baar incorrecte");
 
-                        String id;
+                        Barcode barcode = barcodes.get(0);
 
-                        Barcode barcode = barcodes.get(1);
-
-                        input.setText(barcode.toString());
+                        input.setText(barcode.getDisplayValue());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
